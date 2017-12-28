@@ -23,3 +23,7 @@ Python API Examples
 >>> jenkins = pykins.Jenkins('http://my_jenkins')
 >>> print(jenkins.get_jobs())
 ```
+
+How to contribute?
+------------------
+Using pull requests

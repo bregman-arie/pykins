@@ -11,24 +11,18 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-import pykins.api.job as job_api
+try:
+    from urllib.parse import urljoin
+    from urllib.request import urlopen
+except ImportError:
+    from urlparse import urljoin
+    from urllib import urlopen
 
 
-class Jenkins():
-    """Represents a jenkins server."""
+def build_url(url, url_portion):
+    return urljoin(url, 'api/json', url_portion)
 
-    def __init__(self, url, username=None, password=None):
-        """Instantiates Jenkins object.
 
-        :param url: the url for a given jenkins instance
-        :param username: username for jenkins auth
-        :param password: password for jenkins auth
-
-        """
-        self.url = url
-        self.username = username
-        self.password = password
-
-    def get_jobs(self):
-        """API endpoint for getting jobs object from Jenkins."""
-        return job_api.get_jobs(self)
+def open_url(jenkins, url_portion):
+    """Open given Jenkins URL."""
+    return urlopen(build_url(jenkins.url, url_portion)).read()
