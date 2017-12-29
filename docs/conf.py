@@ -166,6 +166,3 @@ texinfo_documents = [
      author, 'pykins', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
