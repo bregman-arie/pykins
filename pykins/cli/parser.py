@@ -15,6 +15,8 @@ import argparse
 import getpass
 import sys
 
+from pykins.cli.config import Config
+
 
 def create_build_parser(client_subparsers, parent_parser):
     """Creates build parser"""
@@ -252,11 +254,12 @@ def create_parser():
         '--user', '-u', default=getpass.getuser(),
         help='username')
     main_parser.add_argument(
-        '--config', '-c', dest="config",
-        help='client configuration file')
+        '--config', '-c', dest="PYKINS_CONFIG_FILE",
+        default=Config.CONFIG_FILE,
+        help='configuration file')
     main_parser.add_argument(
         '--debug', required=False, action='store_true',
-        dest="debug", help='debug flag')
+        dest="PYKINS_DEBUG", help='Turn on debug')
 
     client_subparsers = main_parser.add_subparsers(
         title="client", dest="main_command")
