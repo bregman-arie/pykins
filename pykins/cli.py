@@ -18,8 +18,7 @@ except ImportError:
 import logging
 import os
 
-import pykins
-import pykins.cli.parser as pykins_parser
+import pykins.parser as pykins_parser
 from pykins.common import exceptions
 from pykins.cli.config import Config
 
@@ -29,9 +28,8 @@ LOG = logging.getLogger(__name__)
 class Client():
     """Represents application CLI."""
 
-    def __init__(self, args, config={}):
+    def __init__(self, args):
         """Initialize client."""
-        self.config = config
         self.name = Config.APP_NAME
         self.load_config(args)
         try:
