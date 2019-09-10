@@ -1,4 +1,4 @@
-# Copyright 2017 Infuse Team
+# Copyright 2019 Arie Bregman
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -20,7 +20,6 @@ import os
 
 import pykins.parser as pykins_parser
 from pykins.common import exceptions
-from pykins.cli.config import Config
 
 LOG = logging.getLogger(__name__)
 
@@ -30,7 +29,6 @@ class Client():
 
     def __init__(self, args):
         """Initialize client."""
-        self.name = Config.APP_NAME
         self.load_config(args)
         try:
             self.jenkins = pykins.Jenkins(
@@ -41,7 +39,11 @@ class Client():
             raise exceptions.MissingConfigException(e.message)
 
     def load_config(self, args):
-        """Load configuration from different sources"""
+        """Load configuration from different sources
+
+        Built-in Pykins configuration
+        Environment variables which start with PYKINS_ prefix
+        """
         for key in dir(Config):
             if key.isupper():
                 self.config[key] = getattr(Config, key)
@@ -95,7 +97,7 @@ class Client():
 
 def main():
     """Main entry for Pykins CLI."""
-    # Parse arguments provided by the user
+    # Create parser object & parse arguments provided by the user
     parser = pykins_parser.create_parser()
     args = parser.parse_args()
 
