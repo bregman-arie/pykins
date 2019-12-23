@@ -1,10 +1,11 @@
-Pykins
-======
+## Pykins
 
-Python API and CLI for Jenkins in one package :)
+Yet another CLI for Jenkins.
+Pykins provides you with:
 
-Installation
-------------
+  * The ability to analyze builds
+
+### Installation
 
 A virtual environment is recommended for development.
 To install the latest version of `pykins`, run the following commands:
@@ -16,14 +17,26 @@ To install from PyPi (not necessarily latest version!):
 
     pip install pykins
 
-Python API Examples
--------------------
-```python
->>> import pykins
->>> jenkins = pykins.Jenkins('http://my_jenkins')
->>> print(jenkins.get_jobs())
+#### Set up configuration
+
+Create the file `/etc/pykins/pykins.yaml` with the following content:
+
+```
+jenkins:
+   url: https://<jenkins_instance> 
+   user: <jenkins_username>
+   password: <jenkins_API_token>
 ```
 
-How to contribute?
-------------------
+### CLI
+
+* Analyze build
+
+```
+pykins build analyze https://<jenkins_server>/job/<job_name>/<build_number>
+OR
+pykins build analyze --build <build_number> --job <job_name>
+```
+
+### How to contribute?
 Using pull requests

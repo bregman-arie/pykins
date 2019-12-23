@@ -23,6 +23,24 @@ def create_build_parser(client_subparsers, parent_parser):
     build_action_subparser = build_parser.add_subparsers(title="action",
                                                          dest="build_command")
 
+
+    # Analyze build
+    build_analyze_parser = build_action_subparser.add_parser(
+        "analyze",
+        help="analyze a given build",
+        parents=[parent_parser])
+    build_analyze_parser.add_argument("--number", "-b",
+                                      dest="build_number",
+                                      required=False,
+                                      help='build number')
+    build_analyze_parser.add_argument('--name', '-j', dest="job_name",
+                                      required=False,
+                                      help='job name', nargs=1)
+    build_analyze_parser.add_argument('--url', '-u', dest="build_url",
+                                      required=False,
+                                      help="build URL", nargs=1)
+
+ 
     # Stop build
     build_stop_parser = build_action_subparser.add_parser(
         "stop",
