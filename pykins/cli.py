@@ -22,7 +22,7 @@ LOG = logging.getLogger(__name__)
 
 
 class Client():
-    """Represents application CLI."""
+    """Represents CLI Client."""
 
     def __init__(self, args):
         """Initialize client."""
@@ -35,12 +35,16 @@ class Client():
         except KeyError as e:
             raise exceptions.MissingConfigException(e.message)
 
+    def connect(self):
+        """Connect to Jenkins"""
+        pass
+
 def main():
-    """Main entry for Pykins CLI."""
+    """Main entry for CLI."""
     # Create parser object & parse arguments provided by the user
     parser = pykins_parser.create_parser()
     args = parser.parse_args()
 
     # Create Pykins client and execute given command
     pykins_client = Client(args)
-    pykins_client.execute()
+    pykins_client.connect()

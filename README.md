@@ -13,6 +13,10 @@ To install the latest version of `pykins`, run the following commands:
     virtualenv .venv && source .venv/bin/activate
     pip install .
 
+If you prefer, you can use `pipenv` for installing latest vesion:
+
+    pipenv shell
+
 To install from PyPi (not necessarily latest version!):
 
     pip install pykins
@@ -28,7 +32,7 @@ jenkins:
    password: <jenkins_API_token>
 ```
 
-### CLI
+### Usage
 
 * Analyze build
 

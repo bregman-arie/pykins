@@ -11,9 +11,16 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+import logging
+
+LOG = logging.getLogger(__name__)
 
 
-class Config():
+class Jenkins():
+    """Represents Jenkins instance."""
 
-    def __init__(self):
-        pass
+    def __init__(self, url, user, password):
+        """Initialize client."""
+        self.url = url
+        self.user = user
+        self.password = password
