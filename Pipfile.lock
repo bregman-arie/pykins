@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a5448d4b0dfc06ccad37efa282679c3a87d583b9bec3a1e5c223a595088ac9cc"
+            "sha256": "f6ec9f4aabcb3fe19cde5501f42416286eec5b18b501f7cdadaefec285f42af0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,21 @@
         ]
     },
     "default": {
+        "colorama": {
+            "hashes": [
+                "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff",
+                "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"
+            ],
+            "version": "==0.4.3"
+        },
+        "crayons": {
+            "hashes": [
+                "sha256:50e5fa729d313e2c607ae8bf7b53bb487652e10bd8e7a1e08c4bc8bf62755ffc",
+                "sha256:8c9e4a3a607bc10e9a9140d496ecd16c6805088dd16c852c378f1f1d5db7aeb6"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0"
+        },
         "pykins": {
             "editable": true,
             "path": "."

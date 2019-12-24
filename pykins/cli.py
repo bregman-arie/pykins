@@ -14,8 +14,8 @@
 import logging
 
 from pykins.config import Config
+from pykins.exceptions.usage import general_usage
 from pykins.jenkins import Jenkins
-from pykins.common import exceptions
 import pykins.parser as pykins_parser
 
 LOG = logging.getLogger(__name__)
@@ -28,16 +28,16 @@ class Client():
         """Initialize client."""
         self.args = args
         self.config = Config(self.args)
-        try:
-            self.jenkins = Jenkins(self.config.options['jenkins'],
-                                   self.config.options['user'],
-                                   self.config.options['password'])
-        except KeyError as e:
-            raise exceptions.MissingConfigException(e.message)
 
     def connect(self):
         """Connect to Jenkins"""
-        pass
+        self.jenkins = Jenkins()
+
+    def execute(self):
+        if hasattr(self.args, 'func'):
+            self.args.func(self.args)
+        else:
+            LOG.error(general_usage())
 
 def main():
     """Main entry for CLI."""
@@ -48,3 +48,4 @@ def main():
     # Create Pykins client and execute given command
     pykins_client = Client(args)
     pykins_client.connect()
+    pykins_client.execute()

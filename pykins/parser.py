@@ -12,7 +12,6 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 import argparse
-import getpass
 import sys
 
 
@@ -263,18 +262,8 @@ def create_parser():
 
     main_parser = argparse.ArgumentParser()
     main_parser.add_argument(
-        '--server', '-s', default='jenkins',
-        dest="section",
-        help="Section name in config file, defaults to 'jenkins'")
-    main_parser.add_argument(
-        '--user', '-u', default=getpass.getuser(),
-        help='username')
-    main_parser.add_argument(
         '--config', '-c', dest="PYKINS_CONFIG_FILE",
         help='configuration file')
-    main_parser.add_argument(
-        '--debug', required=False, action='store_true',
-        dest="PYKINS_DEBUG", help='Turn on debug')
 
     client_subparsers = main_parser.add_subparsers(
         title="client", dest="main_command")
