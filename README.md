@@ -32,15 +32,13 @@ jenkins:
    password: <jenkins_API_token>
 ```
 
-### Usage
+### CLI Usage
 
-* Analyze build
+Work in progress
 
-```
-pykins build analyze https://<jenkins_server>/job/<job_name>/<build_number>
-OR
-pykins build analyze --build <build_number> --job <job_name>
-```
+### API Usage
+
+Work in progress
 
 ### How to contribute?
 Using pull requests

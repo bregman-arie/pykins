@@ -14,7 +14,6 @@
 import argparse
 
 from pykins.cli.job.parser import create_job_parser
-from pykins.cli.build.parser import create_build_parser
 
 
 def create_parser():
@@ -32,6 +31,5 @@ def create_parser():
         title="client", dest="main_command")
 
     create_job_parser(client_subparsers, parent_parser)
-    create_build_parser(client_subparsers, parent_parser)
 
     return main_parser
