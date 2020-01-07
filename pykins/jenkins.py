@@ -13,17 +13,14 @@
 #    under the License.
 import logging
 
-from pykins.job import JenkinsJob
-
 LOG = logging.getLogger(__name__)
 
 
 class Jenkins():
     """Represents Jenkins instance."""
 
-    def __init__(self, url=None, user=None, password=None):
+    def __init__(self, url=None, user="stam", password=None):
         """Initialize client."""
         self.url = url
         self.user = user
         self.password = password
-        self.job = JenkinsJob()

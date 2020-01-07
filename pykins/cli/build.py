@@ -11,13 +11,14 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+
+
 def create_build_parser(client_subparsers, parent_parser):
     """Creates build parser"""
     build_parser = client_subparsers.add_parser("build",
                                                 parents=[parent_parser])
     build_action_subparser = build_parser.add_subparsers(title="action",
                                                          dest="build_command")
-
 
     # Analyze build
     build_analyze_parser = build_action_subparser.add_parser(
@@ -35,7 +36,6 @@ def create_build_parser(client_subparsers, parent_parser):
                                       required=False,
                                       help="build URL", nargs=1)
 
- 
     # Stop build
     build_stop_parser = build_action_subparser.add_parser(
         "stop",

@@ -22,7 +22,6 @@ def create_build_parser(client_subparsers, parent_parser):
     build_action_subparser = build_parser.add_subparsers(title="action",
                                                          dest="build_command")
 
-
     # Analyze build
     build_analyze_parser = build_action_subparser.add_parser(
         "analyze",
@@ -39,7 +38,6 @@ def create_build_parser(client_subparsers, parent_parser):
                                       required=False,
                                       help="build URL", nargs=1)
 
- 
     # Stop build
     build_stop_parser = build_action_subparser.add_parser(
         "stop",

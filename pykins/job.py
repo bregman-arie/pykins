@@ -11,6 +11,13 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+from pykins.jenkins import Jenkins
 
-def list(args=None):
-    print("I don't do anything at the moment :(")
+
+class JenkinsJob(Jenkins):
+
+    def __init__(self):
+        super(JenkinsJob, self).__init__()
+
+    def list(self, args=None):
+        pass

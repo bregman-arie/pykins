@@ -34,8 +34,9 @@ def main():
     args = parser.parse_args()
     setup_logging(args.debug)
 
-    if hasattr(args, 'func'):
-        args.func(args)
+    if hasattr(args, 'cls'):
+        cls = args.cls()
+        getattr(cls, args.func)()
     else:
         LOG.error(general_usage())
 

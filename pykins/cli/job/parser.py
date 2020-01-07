@@ -13,7 +13,8 @@
 #    under the License.
 import sys
 
-from pykins.job import list as job_list
+from pykins.job import JenkinsJob
+
 
 def create_job_parser(client_subparsers, parent_parser):
     """Creates job parser"""
@@ -25,7 +26,6 @@ def create_job_parser(client_subparsers, parent_parser):
         default_nargs = '+'  # without piping, no args would generare error
 
     job_parser = client_subparsers.add_parser("job", parents=[parent_parser])
-    job_parser.set_defaults(func=job_list)
     job_action_subparser = job_parser.add_subparsers(title="action",
                                                      dest="job_command")
 
@@ -38,7 +38,7 @@ def create_job_parser(client_subparsers, parent_parser):
     # List
     job_list_parser = job_action_subparser.add_parser(
         "list", help="list job(s)", parents=[parent_parser])
-    job_list_parser.set_defaults(func=job_list)
+    job_list_parser.set_defaults(cls=JenkinsJob, func='list')
     job_list_parser.add_argument('name',
                                  nargs='*',
                                  default=default_args,

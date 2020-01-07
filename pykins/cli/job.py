@@ -15,6 +15,7 @@ import sys
 
 from pykins.cli import job as job_cli
 
+
 def create_job_parser(client_subparsers, parent_parser):
     """Creates job parser"""
     if not sys.stdin.isatty():
