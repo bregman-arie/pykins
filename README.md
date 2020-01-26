@@ -34,7 +34,9 @@ jenkins:
 
 ### CLI Usage
 
-Work in progress
+#### Job Operations
+
+* List jobs: `pykins job list`
 
 ### API Usage
 

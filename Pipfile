@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 pykins = {editable = true,path = "."}
 crayons = "*"
+requests = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"

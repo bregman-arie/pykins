@@ -12,6 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 import logging
+import yaml
 
 LOG = logging.getLogger(__name__)
 
@@ -19,8 +20,22 @@ LOG = logging.getLogger(__name__)
 class Jenkins():
     """Represents Jenkins instance."""
 
-    def __init__(self, url=None, user="stam", password=None):
+    DEFAULT_CONF_PATH = "/etc/pykins/pykins.yaml"
+
+    def __init__(self, url=None, user=None, token=None):
         """Initialize client."""
         self.url = url
         self.user = user
-        self.password = password
+        self.token = token
+        if not all([url, user, token]):
+            self.load_configuration()
+
+    def load_configuration(self):
+        """Load pykins configuration from a file."""
+        with open(self.DEFAULT_CONF_PATH, 'r') as f:
+            conf = yaml.load(f)
+            for k,v in conf.items():
+                self.url = v['url']
+                self.user = v['user']
+                self.token = v['token']
+        LOG.info("Used configuration: {}".format(self.DEFAULT_CONF_PATH))

@@ -1,4 +1,4 @@
 jenkins:
    url: https://<jenkins_instance> 
    user: <jenkins_username>
-   password: <jenkins_API_token>
+   token: <jenkins_API_token>
