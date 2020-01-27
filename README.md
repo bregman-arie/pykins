@@ -38,6 +38,7 @@ jenkins:
 
 * List jobs: `pykins job list`
 * List jobs with substring 'neutron': `pykins job list neutron`
+* Show job inforamtion(description, builds): `pykins job show <job_name>`
 
 ### API Usage
 

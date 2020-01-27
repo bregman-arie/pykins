@@ -44,6 +44,14 @@ def create_job_parser(client_subparsers, parent_parser):
                                  help='job name or part of it')
     job_list_parser.set_defaults(cls=JenkinsJob, func='list')
 
+    # Show
+    job_show_parser = job_action_subparser.add_parser(
+        "show", help="show job details", parents=[parent_parser])
+    job_show_parser.add_argument('job',
+                                 default=default_args,
+                                 help='job name')
+    job_show_parser.set_defaults(cls=JenkinsJob, func='show')
+
     # Delete
     job_delete_parser = job_action_subparser.add_parser(
         "delete", help="delete job", parents=[parent_parser])

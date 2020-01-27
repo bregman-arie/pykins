@@ -35,6 +35,18 @@ class JenkinsJob(Jenkins):
                 substr in job['name'] for substr in args.substrings)]
         self.print_colorized_jobs(jobs)
 
+    def show(self, args):
+        job_url = "%s/job/%s/api/json" % (self.url, args.job)
+        req = requests.get(
+            job_url, verify=False,
+            auth=HTTPBasicAuth(self.user, self.token))
+        job = req.json()
+        print("Job: {}".format(job['fullName']))
+        print("============================\nDescription: {}".format(job['description']))
+        print("============================\nBuilds:")
+        for build in job['builds']:
+            print("{} | {}".format(build['number'], build['url']))
+
     @staticmethod
     def print_colorized_jobs(jobs):
         """Job is a dictionary like this:
