@@ -34,7 +34,7 @@ class Jenkins():
         """Load pykins configuration from a file."""
         with open(self.DEFAULT_CONF_PATH, 'r') as f:
             conf = yaml.load(f)
-            for k,v in conf.items():
+            for k, v in conf.items():
                 self.url = v['url']
                 self.user = v['user']
                 self.token = v['token']

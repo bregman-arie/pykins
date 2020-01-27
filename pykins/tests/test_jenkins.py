@@ -13,10 +13,12 @@
 #    under the License.
 import unittest
 
+
 class TestJenkins(unittest.TestCase):
 
     def test_jenkins(self):
         pass
+
 
 if __name__ == '__main__':
     unittest.main()

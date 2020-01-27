@@ -38,11 +38,12 @@ def create_job_parser(client_subparsers, parent_parser):
     # List
     job_list_parser = job_action_subparser.add_parser(
         "list", help="list job(s)", parents=[parent_parser])
-    job_list_parser.set_defaults(cls=JenkinsJob, func='list')
-    job_list_parser.add_argument('name',
+    job_list_parser.add_argument('substrings',
                                  nargs='*',
                                  default=default_args,
                                  help='job name or part of it')
+    job_list_parser.set_defaults(cls=JenkinsJob, func='list')
+
     # Delete
     job_delete_parser = job_action_subparser.add_parser(
         "delete", help="delete job", parents=[parent_parser])

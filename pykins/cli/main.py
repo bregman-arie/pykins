@@ -36,7 +36,7 @@ def main():
 
     if hasattr(args, 'cls'):
         cls = args.cls()
-        getattr(cls, args.func)()
+        getattr(cls, args.func)(args=args)
     else:
         LOG.error(general_usage())
 

@@ -24,19 +24,37 @@ class JenkinsJob(Jenkins):
         super(JenkinsJob, self).__init__()
 
     def list(self, args=None):
-        print("listing")
+        """List jobs."""
         jobs_url = "%s/api/json" % self.url
-        r = requests.get(jobs_url, verify=False,
-                         auth=HTTPBasicAuth(self.user, self.token))
-        for job in r.json()["jobs"]:
+        req = requests.get(
+            jobs_url, verify=False,
+            auth=HTTPBasicAuth(self.user, self.token))
+        jobs = req.json()["jobs"]
+        if args.substrings:
+            jobs = [job for job in jobs if any(
+                substr in job['name'] for substr in args.substrings)]
+        self.print_colorized_jobs(jobs)
+
+    @staticmethod
+    def print_colorized_jobs(jobs):
+        """Job is a dictionary like this:
+            {"_class":"hudson.model.FreeStyleProject",
+             "name":"util-slave-janitor",
+             "url":"https://my_jenkins.com/job/util-slave-janitor/",
+             "color":"red"}
+        """
+        for job in jobs:
             if 'color' in job:
                 if job['color'] == 'red':
-                    print(crayons.red(job['name']))
+                    print("{} | {}".format(crayons.red(job['name']),
+                                           crayons.red("Failed")))
                 elif job['color'] == 'yellow':
-                    print(crayons.yellow(job['name']))
+                    print("{} | {}".format(crayons.yellow(job['name']),
+                                           crayons.yellow("Unstable")))
                 elif job['color'] == 'blue':
-                    print(crayons.green(job['name']))
+                    print("{} | {}".format(crayons.green(job['name']),
+                                           crayons.green("Passed")))
                 elif job['color'] == 'notbuilt':
-                    print(job['name'])
+                    print("{} | {}".format(job['name'], "No Builds"))
             else:
                 print(job['name'])

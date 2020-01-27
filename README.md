@@ -37,6 +37,7 @@ jenkins:
 #### Job Operations
 
 * List jobs: `pykins job list`
+* List jobs with substring 'neutron': `pykins job list neutron`
 
 ### API Usage
 

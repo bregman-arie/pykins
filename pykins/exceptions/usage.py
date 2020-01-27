@@ -25,6 +25,10 @@ Usage Examples:
     List all jobs
     $ {}
 
+    List jobs with substring 'neutron'
+    $ {}
+
 """.format(crayons.yellow('pykins build analyze <job_name> <build_number>'),
-           crayons.yellow('pykins job list'))
+           crayons.yellow('pykins job list'),
+           crayons.yellow('pykins job list neutron'))
     return message
