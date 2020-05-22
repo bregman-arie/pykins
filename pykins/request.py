@@ -15,6 +15,7 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+
 def build_url(url, url_portion):
     return urllib3.urljoin(url, 'api/json', url_portion)
 

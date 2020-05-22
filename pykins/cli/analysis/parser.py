@@ -11,6 +11,12 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+from pykins.build import JenkinsBuild
+
+
 def create_analysis_parser(client_subparsers, parent_parser):
     """Creates analysis parser"""
-    analysis_parser = client_subparsers.add_parser("analyze", parents=[parent_parser])
+    analysis_parser = client_subparsers.add_parser("analyze",
+                                                   parents=[parent_parser])
+    analysis_parser.add_argument('job', help='job name')
+    analysis_parser.set_defaults(cls=JenkinsBuild, func='analyze')

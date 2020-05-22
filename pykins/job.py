@@ -42,7 +42,8 @@ class JenkinsJob(Jenkins):
             auth=HTTPBasicAuth(self.user, self.token))
         job = req.json()
         print("Job: {}".format(job['fullName']))
-        print("============================\nDescription: {}".format(job['description']))
+        print("============================\nDescription: {}".format(
+            job['description']))
         print("============================\nBuilds:")
         for build in job['builds']:
             print("{} | {}".format(build['number'], build['url']))
