@@ -31,26 +31,46 @@ class JenkinsBuild(Jenkins):
         console_text_url = "%s/job/%s/lastBuild/consoleText" % (
             self.url, args.job)
         LOG.info("Getting data from: %s" % console_text_url)
+        # Get build console output
         console_output = self.get_text(console_text_url)
+        # Get all errors from the build and print it out
         err_output = self.get_errors(console_output)
         print(*err_output, sep="\n")
+
+    def find_index(self, li, content, start_pos = 0, reverse = False):
+        if reverse:
+            enumerated_list = reversed(list(enumerate(li)))
+        else:
+            enumerated_list = enumerate(li)
+        for i, item in enumerated_list:
+            if content in item:
+                return i
+
 
     def get_errors(self, text):
         errors = []
         linesBeforeMatch = []
         log_urls = []
+        # Iterate over each line of the text/log
         for i, l in enumerate(text):
+            # Append lines in case we would like to print the info before the actual error
             linesBeforeMatch.append(l)
             # Check if line contains error
-            match = re.findall(r'failed=1|fatal|shit', l)
+            match = re.findall(r'failed=1|fatal|shite', l)
+            # Check if line contains link to another log url
+            # and append it to urls list if so
             urls_match = re.findall(r'http.*.log', l)
             if urls_match:
                 log_urls.append(urls_match[0])
+            # If found error, append it and every other relevant line
             if match:
-                errors.extend(linesBeforeMatch[-5:])
+                if "failed=1" in match:
+                    ind = self.find_index(text, content='TASK', start_pos = i, reverse = True)
+                    errors.extend(text[ind:i])
+                else:
                 # Take extra lines after the match
-                for ext_l in text[i + 1:i + 15]:
-                    errors.append(ext_l)
+                    for ext_l in text[i + 1:i + 15]:
+                        errors.append(ext_l)
         if not errors:
             for url in log_urls[::-1]:
                 text = self.get_text(url)
