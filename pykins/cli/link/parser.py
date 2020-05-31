@@ -1,4 +1,4 @@
-# Copyright 2020 Arie Bregman
+# Copyright 2019 Arie Bregman
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
 #    not use this file except in compliance with the License. You may obtain
@@ -11,3 +11,9 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
+
+
+def create_link_parser(client_subparsers, parent_parser):
+    """Creates link parser"""
+    link_parser = client_subparsers.add_parser("link",
+                                               parents=[parent_parser])

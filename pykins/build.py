@@ -37,7 +37,7 @@ class JenkinsBuild(Jenkins):
         err_output = self.get_errors(console_output)
         print(*err_output, sep="\n")
 
-    def find_index(self, li, content, start_pos = 0, reverse = False):
+    def find_index(self, li, content, start_pos=0, reverse=False):
         if reverse:
             enumerated_list = reversed(list(enumerate(li)))
         else:
@@ -46,14 +46,14 @@ class JenkinsBuild(Jenkins):
             if content in item:
                 return i
 
-
     def get_errors(self, text):
         errors = []
         linesBeforeMatch = []
         log_urls = []
         # Iterate over each line of the text/log
         for i, l in enumerate(text):
-            # Append lines in case we would like to print the info before the actual error
+            # Append lines in case we would like to print the info before
+            # the actual error
             linesBeforeMatch.append(l)
             # Check if line contains error
             match = re.findall(r'failed=1|fatal|shite', l)
@@ -65,10 +65,11 @@ class JenkinsBuild(Jenkins):
             # If found error, append it and every other relevant line
             if match:
                 if "failed=1" in match:
-                    ind = self.find_index(text, content='TASK', start_pos = i, reverse = True)
+                    ind = self.find_index(text, content='TASK',
+                                          start_pos=i, reverse=True)
                     errors.extend(text[ind:i])
                 else:
-                # Take extra lines after the match
+                    # Take extra lines after the match
                     for ext_l in text[i + 1:i + 15]:
                         errors.append(ext_l)
         if not errors:

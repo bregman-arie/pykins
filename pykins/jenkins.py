@@ -38,4 +38,4 @@ class Jenkins():
                 self.url = v['url']
                 self.user = v['user']
                 self.token = v['token']
-        LOG.info("Used configuration: {}".format(self.DEFAULT_CONF_PATH))
+        LOG.debug("Used configuration: {}".format(self.DEFAULT_CONF_PATH))

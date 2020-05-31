@@ -13,14 +13,15 @@
 #    under the License.
 import argparse
 
-from pykins.cli.job.parser import create_job_parser
 from pykins.cli.analysis.parser import create_analysis_parser
+from pykins.cli.job.parser import create_job_parser
+from pykins.cli.link.parser import create_link_parser
 
 
 def create_parser():
     """Returns argument parser"""
 
-    # Jcli top level parser
+    # top level parser
     parent_parser = argparse.ArgumentParser(add_help=False)
 
     main_parser = argparse.ArgumentParser()
@@ -31,7 +32,8 @@ def create_parser():
     client_subparsers = main_parser.add_subparsers(
         title="client", dest="main_command")
 
-    create_job_parser(client_subparsers, parent_parser)
     create_analysis_parser(client_subparsers, parent_parser)
+    create_job_parser(client_subparsers, parent_parser)
+    create_link_parser(client_subparsers, parent_parser)
 
     return main_parser
