@@ -15,7 +15,6 @@ import argparse
 
 from pykins.cli.analysis.parser import create_analysis_parser
 from pykins.cli.job.parser import create_job_parser
-from pykins.cli.link.parser import create_link_parser
 
 
 def create_parser():
@@ -34,6 +33,5 @@ def create_parser():
 
     create_analysis_parser(client_subparsers, parent_parser)
     create_job_parser(client_subparsers, parent_parser)
-    create_link_parser(client_subparsers, parent_parser)
 
     return main_parser

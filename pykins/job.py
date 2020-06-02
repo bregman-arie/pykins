@@ -12,16 +12,28 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 import crayons
+import logging
 import requests
 from requests.auth import HTTPBasicAuth
 
 from pykins.jenkins import Jenkins
+
+LOG = logging.getLogger(__name__)
 
 
 class JenkinsJob(Jenkins):
 
     def __init__(self):
         super(JenkinsJob, self).__init__()
+
+    def count(self, args=None):
+        """Count the number of jobs."""
+        jobs_url = "%s/api/json" % self.url
+        req = requests.get(
+            jobs_url, verify=False,
+            auth=HTTPBasicAuth(self.user, self.token))
+        jobs = req.json()["jobs"]
+        LOG.info("Number of jobs: {}".format(len(jobs)))
 
     def list(self, args=None):
         """List jobs."""

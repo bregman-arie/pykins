@@ -34,6 +34,7 @@ def create_job_parser(client_subparsers, parent_parser):
         "count", help="print number of jobs", parents=[parent_parser])
     job_count_parser.add_argument('string', help='job name or part of it',
                                   nargs='?')
+    job_count_parser.set_defaults(cls=JenkinsJob, func='count')
 
     # List
     job_list_parser = job_action_subparser.add_parser(
