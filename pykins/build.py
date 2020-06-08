@@ -34,13 +34,17 @@ class JenkinsBuild(Jenkins):
         LOG.info("Getting data from: %s" % console_text_url)
         # Get build console output
         console_output = self.get_text(console_text_url)
-        # Get all errors from the build and print it out
-        err_output = self.get_errors(console_output)
-        if err_output:
-            print(*err_output, sep="\n")
-        else:
-            LOG.info(crayons.cyan("Alfred: Sir, this build seems fine to me but I \
+        if "Error 404 Not Found" not in console_output[3]:
+            # Get all errors from the build and print it out
+            err_output = self.get_errors(console_output)
+            if err_output:
+                print(*err_output, sep="\n")
+            else:
+                LOG.info(crayons.cyan("Alfred: Sir, this build seems fine to me but I \
 might be wrong as you know. After all, I was developed by a human"))
+        else:
+            LOG.info(crayons.cyan("Alfred: Sir, I couldn't find such job.\
+ Perhaps take the rest of the day off. You work too hard"))
 
     def find_index(self, li, content, start_pos=0, reverse=False):
         if reverse:

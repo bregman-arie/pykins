@@ -45,7 +45,13 @@ class JenkinsJob(Jenkins):
         if args.substrings:
             jobs = [job for job in jobs if any(
                 substr in job['name'] for substr in args.substrings)]
-        self.print_colorized_jobs(jobs)
+            job_str = "{} | {}"
+            if args.with_links:
+                job_str = job_str + " | {}"
+            for job in jobs:
+                LOG.info(job_str.format(
+                    job['name'],
+                    self.get_result_from_color(job['color']), job['url']))
 
     def show(self, args):
         job_url = "%s/job/%s/api/json" % (self.url, args.job)
@@ -58,28 +64,19 @@ class JenkinsJob(Jenkins):
             job['description']))
         print("============================\nBuilds:")
         for build in job['builds']:
-            print("{} | {}".format(build['number'], build['url']))
+            print("{} | {} | {}".format(
+                build['number'], build['url'],
+                build.get('color', crayons.red("Failed"))))
 
     @staticmethod
-    def print_colorized_jobs(jobs):
-        """Job is a dictionary like this:
-            {"_class":"hudson.model.FreeStyleProject",
-             "name":"util-slave-janitor",
-             "url":"https://my_jenkins.com/job/util-slave-janitor/",
-             "color":"red"}
-        """
-        for job in jobs:
-            if 'color' in job:
-                if job['color'] == 'red':
-                    print("{} | {}".format(crayons.red(job['name']),
-                                           crayons.red("Failed")))
-                elif job['color'] == 'yellow':
-                    print("{} | {}".format(crayons.yellow(job['name']),
-                                           crayons.yellow("Unstable")))
-                elif job['color'] == 'blue':
-                    print("{} | {}".format(crayons.green(job['name']),
-                                           crayons.green("Passed")))
-                elif job['color'] == 'notbuilt':
-                    print("{} | {}".format(job['name'], "No Builds"))
-            else:
-                print(job['name'])
+    def get_result_from_color(color):
+        if color == 'red':
+            return crayons.red("Failed")
+        elif color == 'yellow':
+            return crayons.yellow("Unstable")
+        elif color == 'blue':
+            return crayons.green("Passed")
+        elif color == 'notbuilt':
+            return "No Builds"
+        else:
+            return "Unknown"

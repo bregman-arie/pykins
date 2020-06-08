@@ -43,6 +43,9 @@ def create_job_parser(client_subparsers, parent_parser):
                                  nargs='*',
                                  default=default_args,
                                  help='job name or part of it')
+    job_list_parser.add_argument('--with-links', '-l',
+                                 action='store_true',
+                                 help='Show links to the jobs')
     job_list_parser.set_defaults(cls=JenkinsJob, func='list')
 
     # Show
