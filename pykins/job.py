@@ -13,6 +13,7 @@
 #    under the License.
 import crayons
 import logging
+import re
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -43,15 +44,24 @@ class JenkinsJob(Jenkins):
             auth=HTTPBasicAuth(self.user, self.token))
         jobs = req.json()["jobs"]
         if args.substrings:
-            jobs = [job for job in jobs if any(
-                substr in job['name'] for substr in args.substrings)]
+            if args.re:
+                matched_jobs = [job for job in jobs if any(
+                    bool((re.compile(substr)).match(
+                        job['name'])) for substr in args.substrings)]
+            else:
+                matched_jobs = jobs = [job for job in jobs if any(
+                    substr in job['name'] for substr in args.substrings)]
             job_str = "{} | {}"
             if args.with_links:
                 job_str = job_str + " | {}"
-            for job in jobs:
-                LOG.info(job_str.format(
-                    job['name'],
-                    self.get_result_from_color(job['color']), job['url']))
+            if matched_jobs:
+                for job in matched_jobs:
+                    LOG.info(job_str.format(
+                        job['name'],
+                        self.get_result_from_color(job['color']), job['url']))
+            else:
+                LOG.info(crayons.cyan("Alfred: I'm sorry sir, I couldn't \
+find any match"))
 
     def show(self, args):
         job_url = "%s/job/%s/api/json" % (self.url, args.job)
